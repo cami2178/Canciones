@@ -1,6 +1,7 @@
 package com.camilachamblas.modelos;
 import java.util.Date;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="canciones")
@@ -19,10 +21,20 @@ public class Cancion {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Size(min=5, message="Por favor proporciona el título de la cancion.")
 	private String titulo;
+	
+	@Size(min=3, message="Por favor proporciona el nombre del artista")
 	private String artista;
+	
+	@Size(min=3, message="Por favor proporciona el nombre del album.")
 	private String album;
+	
+	@Size(min=3, message="Por favor proporciona el genero de la cancion.")
 	private String genero;
+	
+	@Size(min=3, message="Por favor proporciona el idioma de la canción.")
 	private String idioma;
 	
 	

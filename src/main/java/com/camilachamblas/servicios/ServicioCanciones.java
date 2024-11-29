@@ -26,4 +26,7 @@ public class ServicioCanciones {
 	        return this.repositorioCanciones.findById(id).orElse(null);
 	    }
 	
+	 public Cancion agregarCancion(Cancion cancion) {
+	        return this.repositorioCanciones.save(cancion); 
+	    }
 }
