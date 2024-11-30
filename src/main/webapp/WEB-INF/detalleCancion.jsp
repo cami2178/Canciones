@@ -26,6 +26,12 @@
 			action="/canciones/formulario/editar/${cancion.id}">
 			<button class="btn">Editar</button>
 		</form>
+		<form
+			action="/canciones/eliminar/${cancion.id}" method="POST">
+				<input type="hidden" name="_method" value="DELETE">
+			<button class="btn">Eliminar</button>
+		</form>
+		
 		<a href="/canciones" class="btn">Volver a la lista de
 			canciones</a>
 		</div>
