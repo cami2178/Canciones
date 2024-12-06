@@ -14,7 +14,7 @@
 		<h1>Detalle de Canción</h1>
 		<div class="detalle-cancion">
 			<h2>${cancion.titulo}</h2>
-			<p>Autor: ${cancion.artista}</p>
+			<p>Autor: ${cancion.artista.nombre} ${cancion.artista.apellido}</p>
 			<p>Álbum: ${cancion.album}</p>
 			<p>Género: ${cancion.genero}</p>
 			<p>Idioma:${cancion.idioma}</p>
@@ -31,9 +31,7 @@
 				<input type="hidden" name="_method" value="DELETE">
 			<button class="btn">Eliminar</button>
 		</form>
-		
-		<a href="/canciones" class="btn">Volver a la lista de
-			canciones</a>
+		<a href="/canciones" class="btn">Volver a la lista de canciones</a>
 		</div>
 	</div>
 </body>

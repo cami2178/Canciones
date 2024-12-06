@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -25,8 +27,9 @@ public class Cancion {
 	@Size(min=5, message="Por favor proporciona el título de la cancion.")
 	private String titulo;
 	
-	@Size(min=3, message="Por favor proporciona el nombre del artista")
-	private String artista;
+	@ManyToOne
+	@JoinColumn(name="id_artista")
+	private Artista artista;
 	
 	@Size(min=3, message="Por favor proporciona el nombre del album.")
 	private String album;
@@ -45,6 +48,7 @@ public class Cancion {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "fecha_actualizacion")
 	private Date fechaActualizacion;
+	
 	
 	public Cancion() {	
 	}
@@ -76,11 +80,11 @@ public class Cancion {
 		this.titulo = titulo;
 	}
 
-	public String getArtista() {
+	public Artista getArtista() {
 		return artista;
 	}
 
-	public void setArtista(String artista) {
+	public void setArtista(Artista artista) {
 		this.artista = artista;
 	}
 

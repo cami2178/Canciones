@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Agregar Pelicula</h1>
+	<h1>Agregar Cancion</h1>
 	<div class="row">
 		<form:form class="col-6" action="/canciones/procesa/agregar"
 			method="POST" modelAttribute="cancion">
@@ -20,7 +20,12 @@
 			</div>
 			<div>
 				<form:label path="artista"> Artista: </form:label>
-				<form:input path="artista" />
+				<form:select path="artista">
+					<c:forEach var="artista" items="${listaArtistas}">
+						<option value="${artista.id}">${artista.nombre}</option>
+					</c:forEach>
+				
+				</form:select>
 				<form:errors path="artista" />
 			</div>
 			<div>

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.camilachamblas.modelos.Artista;
 import com.camilachamblas.modelos.Cancion;
+import com.camilachamblas.servicios.ServicioArtistas;
 import com.camilachamblas.servicios.ServicioCanciones;
 
 import jakarta.validation.Valid;
@@ -21,12 +23,15 @@ import jakarta.validation.Valid;
 @Controller
 public class ControladorCanciones {
 
-	@Autowired
-	private final ServicioCanciones servicioCanciones;
+	 	@Autowired
+	    private final ServicioCanciones servicioCanciones;
+	    
+	    @Autowired  
+	    private ServicioArtistas servicioArtistas;  
 
-	public ControladorCanciones(ServicioCanciones servicioCanciones) {
-		this.servicioCanciones = servicioCanciones;
-	}
+	    public ControladorCanciones(ServicioCanciones servicioCanciones) {
+	        this.servicioCanciones = servicioCanciones;
+	    }
 
 	@GetMapping("/canciones")
 	public String desplegarCanciones(Model modelo) {
@@ -47,17 +52,24 @@ public class ControladorCanciones {
 	}
 
 	@GetMapping("/canciones/formulario/agregar/{idCancion}")
-	public String formularioAgregarCancion(@ModelAttribute Cancion cancion) {
+	public String formularioAgregarCancion(@ModelAttribute Cancion cancion, Model modelo) {
+		modelo.addAttribute("listaArtistas", servicioArtistas.obtenerTodosLosArtistas());
 		return "agregarCancion.jsp";
 	}
 
 	@PostMapping("/canciones/procesa/agregar")
 	public String procesarAgregarCancion(@Valid @ModelAttribute Cancion cancion, BindingResult validaciones) {
-		if (validaciones.hasErrors()) {
-			return "AgregarCancion.jsp";
-		}
-		this.servicioCanciones.agregarCancion(cancion);
-		return "redirect:/canciones";
+	    if (validaciones.hasErrors()) {
+	        return "agregarCancion.jsp";
+	    }
+
+	    Artista artista = servicioArtistas.obtenerArtistaPorId(cancion.getArtista().getId());
+	    if (artista != null) {
+	        cancion.setArtista(artista); 
+	    }
+
+	    servicioCanciones.agregarCancion(cancion);
+	    return "redirect:/canciones";
 
 	}
 	
